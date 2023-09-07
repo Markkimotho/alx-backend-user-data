@@ -26,15 +26,6 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.errorhandler(401)
-def unauthorized_resource(error) -> str:
-    """ Error handler for 401 status code
-    Return:
-      - the unauthorized resource error response
-    """
-    return jsonify({"error": "Unauthorized"}), 401
-
-
 @app_views.route('/unauthorized', strict_slashes=False)
 def unauthorized_route():
     """ GET /api/v1/unauthorized
@@ -44,15 +35,6 @@ def unauthorized_route():
     abort(401)
 
 
-@app_views.errorhandler(403)
-def forbidden(error) -> str:
-    """ Error handler for 403 status code
-    Return:
-      - the forbidden resource error response
-    """
-    return jsonify({"error": "Forbidden"}), 403
-
-
 @app_views.route('/forbidden', strict_slashes=False)
 def forbidden_route():
     """ GET /api/v1/forbidden
@@ -60,3 +42,21 @@ def forbidden_route():
       - triggers forbidden error handler and aborts program
     """
     abort(403)
+
+
+@app_views.errorhandler(401)
+def unauthorized_resource(error) -> str:
+    """ Error handler for 401 status code
+    Return:
+      - the unauthorized resource error response
+    """
+    return jsonify({"error": "Unauthorized"}), 401
+
+
+@app_views.errorhandler(403)
+def forbidden(error) -> str:
+    """ Error handler for 403 status code
+    Return:
+      - the forbidden resource error response
+    """
+    return jsonify({"error": "Forbidden"}), 403
